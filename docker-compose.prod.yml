@@ -1,0 +1,31 @@
+services:
+  app:
+    image: ${DOCKER_IMAGE}
+    restart: always
+    ports:
+      - ${PORT}:${PORT}
+    environment:
+      - REDIS_HOST=keydb
+    env_file:
+      - .env
+    depends_on:
+      keydb:
+        condition: service_healthy
+
+  keydb:
+    image: eqalpha/keydb:latest
+    restart: always
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - keydb_data:/data
+      - ./keydb.conf:/etc/keydb/keydb.conf
+    working_dir: /data
+    command: keydb-server /etc/keydb/keydb.conf
+
+volumes:
+  keydb_data:
+    external: true

@@ -1,0 +1,16 @@
+services:
+  
+  keydb:
+    image: eqalpha/keydb:latest
+    ports:
+      - ${REDIS_PORT}:6379
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - keydb_data:/data
+
+volumes:
+  keydb_data:
