@@ -47,8 +47,8 @@ export class SetsController {
   @HttpCode(200)
   @ApiOkResponse({ type: [SetValue], description: 'Complement of a set' })
   @ApiOperation({ summary: 'Complement of a set' })
-  complement(@Body() { universal, subset }: UniversalAndSubsetDto): SetValue[] {
-    return this.setsService.complement(universal, subset);
+  complement(@Body() { set1, set2 }: TwoSetsDto): SetValue[] {
+    return this.setsService.complement(set1, set2);
   }
 
   @Post('cartesian-product')

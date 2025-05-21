@@ -31,11 +31,11 @@ export class SetsService {
     ];
   }
 
-  complement(universal: SetValue[], subset: SetValue[]): SetValue[] {
-    if (!this.isSubset(subset, universal)) {
+  complement(set1: SetValue[], set2: SetValue[]): SetValue[] {
+    if (!this.isSubset(set2, set1)) {
       throw new SetIsNotSubsetException('set1 is not a subset of set2');
     }
-    return this.difference(universal, subset);
+    return this.difference(set1, set2);
   }
 
   cartesianProduct(arr1: SetValue[], arr2: SetValue[]): SetValue[][] {
