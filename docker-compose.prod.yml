@@ -1,31 +1,27 @@
 services:
   app:
-    image: ${DOCKER_IMAGE}
+    image: ${APP_DOCKER_IMAGE}
     restart: always
     ports:
-      - ${PORT}:${PORT}
-    environment:
-      - REDIS_HOST=keydb
+      - ${BACKEND_PORT}:${BACKEND_PORT}
     env_file:
       - .env
-    depends_on:
-      keydb:
-        condition: service_healthy
 
-  keydb:
-    image: eqalpha/keydb:latest
+  frontend:
+    image: ${FRONTEND_IMAGE}
     restart: always
-    healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
-      interval: 5s
-      timeout: 5s
-      retries: 5
-    volumes:
-      - keydb_data:/data
-      - ./keydb.conf:/etc/keydb/keydb.conf
-    working_dir: /data
-    command: keydb-server /etc/keydb/keydb.conf
+    ports:
+      - ${FRONTEND_PORT}:${FRONTEND_PORT}
+    environment:
+      - NEXT_PUBLIC_API_BASE_URL=http://localhost:${BACKEND_PORT}/api/v1
+      - NEXT_SERVER_API_URL=http://app:${BACKEND_PORT}/api/v1
+    env_file:
+      - .env
+    networks:
+      - app-network
 
-volumes:
-  keydb_data:
-    external: true
+networks:
+  app-network:
+    name: app-network
+    driver: bridge
+

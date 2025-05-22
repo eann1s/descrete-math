@@ -1,10 +1,17 @@
-import axios, { AxiosInstance, AxiosResponse } from "axios";
+import axios, { AxiosResponse } from "axios";
 import { SetOperation, SetProperty } from "./enums";
+import { env } from "next-runtime-env";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+function getApiBaseUrl() {
+  if (typeof window === "undefined") {
+    return env("NEXT_SERVER_API_URL");
+  } else {
+    return env("NEXT_PUBLIC_API_BASE_URL");
+  }
+}
 
-export const api: AxiosInstance = axios.create({
-  baseURL: API_BASE_URL,
+const api = axios.create({
+  baseURL: getApiBaseUrl(),
   headers: {
     "Content-Type": "application/json",
   },
