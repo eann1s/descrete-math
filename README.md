@@ -1,64 +1,61 @@
-# Discrete Math Project
+# Проект по дискретной математике
+Полноценное приложение, созданное с использованием современных технологий для выполнения операций и вычислений по дискретной математике.
 
-A full-stack application built with modern technologies for discrete mathematics operations and calculations.
-
-## Project Structure
-
-This project follows a microservices architecture with separate frontend and backend services:
+## Структура проекта
+Проект реализован по микросервисной архитектуре с разделением на фронтенд и бэкенд сервисы:
 
 ```
 descrete-math/
-├── backend/           # NestJS backend API
-├── frontend/          # Next.js frontend application
-├── docker-compose.*.yml  # Docker configuration files
-└── .env.*            # Environment configuration files
+├── backend/               # Бэкенд API на NestJS
+├── frontend/              # Фронтенд-приложение на Next.js
+├── docker-compose.*.yml   # Файлы конфигурации Docker
+└── .env.*                 # Файлы конфигурации окружения
 ```
 
-## Tech Stack
+## Технологический стек
 
-### Backend
-
+### Бэкенд
 - NestJS (TypeScript)
 - Node.js
 - Docker
 - TypeScript
 
-### Frontend
-
+### Фронтенд
 - Next.js (React)
 - TypeScript
 - Docker
 
-## Prerequisites
+### Необходимые условия
+- Node.js (рекомендуется LTS-версия)
+- Docker и Docker Compose
+- Менеджер пакетов npm или yarn
 
-- Node.js (LTS version recommended)
-- Docker and Docker Compose
-- npm or yarn package manager
+## Настройка окружения
+Проект использует различные файлы конфигурации окружения:
 
-## Environment Setup
+- `.env` — основной файл окружения
+- `.env.example` — шаблон для переменных окружения
+- `.env.prod` — конфигурация для продакшн-окружения
 
-The project uses different environment configurations:
+Ключевые переменные окружения:
 
-- `.env` - Main environment file
-- `.env.example` - Template for environment variables
-- `.env.prod` - Production environment configuration
+- `PORT` — порт сервера бэкенда (по умолчанию: 5000)
+- `FRONTEND_PORT` — порт сервера фронтенда (по умолчанию: 3000)
+- `NODE_ENV` — режим окружения (development/production)
+- `CORS_ORIGINS` — разрешённые источники CORS
+- `DEBUG_MODE` — режим отладки (логирование)
+- `NEXT_PUBLIC_API_BASE_URL` — базовый URL API
 
-Key environment variables:
 
-- `PORT` - Backend server port (default: 5000)
-- `FRONTEND_PORT` - Frontend server port (default: 3000)
-- `NODE_ENV` - Environment mode (development/production)
-- `CORS_ORIGINS` - CORS allowed origins
-- `DEBUG_MODE` - Debug logging
-- `NEXT_PUBLIC_API_BASE_URL` - API base URL
+## Быстрый старт
 
-## Getting Started
+### Локальный запуск
 
-### Local Deployment
+Клонируйте репозиторий
 
-1. Clone the repository
-2. Copy `.env.example` to `.env` and configure your environment variables
-3. Start the development environment:
+Скопируйте .env.example в .env и настройте переменные окружения
+
+Запустите окружение для разработки:
 
 ```bash
 cd backend
@@ -68,36 +65,31 @@ cd frontend
 npm run dev
 ```
 
-### Docker Dev Deployment
+### Запуск в Docker (режим разработки)
 
-1. Build the Docker images:
+#### Соберите образы Docker:
 
 ```bash
 docker compose -f docker-compose.dev.yml up -d --build
 ```
 
-2. Access the application:
+Откройте приложение:
 
-- Backend: http://localhost:5000
-- Frontend: http://localhost:3000
+- Бэкенд: http://localhost:5000
+- Фронтенд: http://localhost:3000
 
+## Организация проекта
 
-## Project Organization
+### Структура бэкенда
+- Бэкенд построен на NestJS и использует модульную архитектуру:
+- Контроллеры обрабатывают HTTP-запросы
+- Сервисы содержат бизнес-логику
+- Модули организуют связанную функциональность
+- DTO используются для валидации запросов и ответов
 
-### Backend Structure
-
-The backend is built using NestJS and follows a modular architecture:
-
-- Controllers handle HTTP requests
-- Services contain business logic
-- Modules organize related functionality
-- DTOs for request/response validation
-
-### Frontend Structure
-
-The frontend is built with Next.js and follows a component-based architecture:
-
-- Pages in `/src/pages`
-- Components in `/src/components`
-- Styles in `/src/styles`
-- API integration in `/src/services`
+### Структура фронтенда
+- Фронтенд построен на Next.js и использует компонентный подход:
+- Страницы в /src/pages
+- Компоненты в /src/components
+- Стили в /src/styles
+- Интеграция с API в /src/services
